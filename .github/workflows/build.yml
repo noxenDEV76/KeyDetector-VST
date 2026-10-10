@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
+
     steps:
       - uses: actions/checkout@v4
 
@@ -38,14 +39,20 @@ jobs:
 
       - name: Zip the VST3 (manual install)
         shell: pwsh
-        run: Compress-Archive -Path "build/KeyDetector_artefacts/Release/VST3/Key Detector.vst3" -DestinationPath "KeyDetector-VST3-Windows.zip"
+        run: |
+          Compress-Archive `
+            -Path "build/KeyDetector_artefacts/Release/VST3/Key Detector.vst3" `
+            -DestinationPath "KeyDetector-VST3-Windows.zip" `
+            -Force
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Windows installer and VST3
+        uses: actions/upload-artifact@v4
         with:
           name: KeyDetector-Windows
           path: |
             Installer/Output/KeyDetector-Setup.exe
             KeyDetector-VST3-Windows.zip
+          if-no-files-found: error
 
       - name: Publish release (stable download link)
         shell: pwsh
@@ -54,6 +61,9 @@ jobs:
         run: |
           gh release delete latest --yes --cleanup-tag 2>$null
           $global:LASTEXITCODE = 0
-          gh release create latest "Installer/Output/KeyDetector-Setup.exe" "KeyDetector-VST3-Windows.zip" `
+
+          gh release create latest `
+            "Installer/Output/KeyDetector-Setup.exe" `
+            "KeyDetector-VST3-Windows.zip" `
             --title "Key Detector - latest build" `
             --notes "Download KeyDetector-Setup.exe and run it. Then in FL Studio: Options > Manage plugins > Find plugins."
