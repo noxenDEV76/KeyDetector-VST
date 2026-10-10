@@ -1,3 +1,6 @@
+FRENCH VERSION  
+==============
+
 # Key Detector — plugin VST3 de détection de tonalité (FL Studio)
 
 Plugin transparent (l'audio passe sans modification) qui affiche en temps réel la tonalité du morceau
@@ -47,3 +50,63 @@ Sur macOS/Linux, `cmake -B build && cmake --build build` produit VST3 et Standal
 ## Licence
 
 JUCE est sous licence AGPLv3 / commerciale : pour distribuer le plugin, publie le code source ou prends une licence JUCE.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ENGLISH VERSION  
+===============
+
+
+Key Detector — VST3 Pitch Detection Plugin (FL Studio)
+
+A transparent plugin (audio passes through without modification) that displays the key of a track in real time (e.g., Eb major, E-flat major, Camelot 5B), along with a match confidence indicator, the relative key, the second-best guess, and all 12 detected pitch classes. The interface is resizable.
+
+Get the Windows Installer (one-time setup, ~5 minutes)
+
+Windows requires a specific compiler (Visual Studio), which runs for free on GitHub.
+
+Create an account on github.com and create an empty repository (click New, name it KeyDetector).
+
+In the repository, go to Add file > Upload files and drag in the entire contents of this folder (including the hidden .github folder), then click Commit changes.
+
+Open the Actions tab. The build will start automatically (approximately 10–15 minutes). Wait until the green check mark appears.
+
+Go to the Code tab, find Releases on the right, open Key Detector - latest version, and download KeyDetector-Setup.exe.
+
+Install in FL Studio
+
+Run KeyDetector-Setup.exe (if Windows displays a SmartScreen warning, click More info > Run anyway — the installer is unsigned).
+
+In FL Studio, go to Options > Manage plugins > Find plugins.
+
+Add Key Detector to a Mixer track and start playback.
+
+Without the installer: Extract KeyDetector-VST3-Windows.zip into C:\Program Files\Common Files\VST3.
+
+How to Use
+
+Insert the plugin on the full track or master channel. The results will stabilize after a few seconds.
+
+MEMORY: Sets how long the analysis remembers previous audio (30 seconds by default). Shorter = follows key changes more closely; longer = more stable results.
+
+RESET: Starts the analysis from scratch (use when switching tracks).
+
+MATCH %: Indicates how closely the detected notes match the key profile. ALT displays the next-best guess. If both results are close (e.g., a key and its relative key), the result is ambiguous, which is normal in music.
+
+How It Works
+
+16384-point FFT (50% overlap) → energy between 65 Hz and 4.2 kHz grouped into 12 pitch classes → accumulation with exponential forgetting → correlation against Krumhansl-Kessler key profiles (12 major and 12 minor keys).
+
+Build It Yourself (Windows)
+
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release
+
+JUCE is downloaded automatically. The plugin will be located in build/KeyDetector_artefacts/Release/VST3.
+
+On macOS/Linux, cmake -B build && cmake --build build produces VST3 and Standalone builds (AU on macOS).
+
+
+
+
+
