@@ -1,3 +1,7 @@
+![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/apercu-mib-majeur%20(2).png?raw=true)
+
+![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/Image%202.PNG?raw=true)
+
 # 🎹 KEY DETECTOR — VST3 KEY DETECTION PLUGIN
 
 🎧 **Detect the key of any song directly inside FL Studio!**
