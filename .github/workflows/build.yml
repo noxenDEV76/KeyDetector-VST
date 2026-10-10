@@ -1,0 +1,59 @@
+name: Build Windows installer
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build VST3
+        run: cmake --build build --config Release --parallel
+
+      - name: Check the VST3 exists
+        shell: pwsh
+        run: |
+          $f = "build/KeyDetector_artefacts/Release/VST3/Key Detector.vst3/Contents/x86_64-win/Key Detector.vst3"
+          if (-not (Test-Path $f)) { throw "VST3 introuvable : $f" }
+          Get-Item $f | Format-List Name, Length
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "Installer\KeyDetector.iss"
+          if ($LASTEXITCODE -ne 0) { throw "ISCC a échoué" }
+
+      - name: Zip the VST3 (manual install)
+        shell: pwsh
+        run: Compress-Archive -Path "build/KeyDetector_artefacts/Release/VST3/Key Detector.vst3" -DestinationPath "KeyDetector-VST3-Windows.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: KeyDetector-Windows
+          path: |
+            Installer/Output/KeyDetector-Setup.exe
+            KeyDetector-VST3-Windows.zip
+
+      - name: Publish release (stable download link)
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag 2>$null
+          $global:LASTEXITCODE = 0
+          gh release create latest "Installer/Output/KeyDetector-Setup.exe" "KeyDetector-VST3-Windows.zip" `
+            --title "Key Detector - latest build" `
+            --notes "Download KeyDetector-Setup.exe and run it. Then in FL Studio: Options > Manage plugins > Find plugins."
