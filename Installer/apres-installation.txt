@@ -1,0 +1,8 @@
+Key Detector est installé.
+
+Dans FL Studio :
+  1. Options > Manage plugins (ou "Gérer les plugins")
+  2. Clique sur "Find plugins" (Rechercher des plugins)
+  3. Cherche "Key Detector" dans la liste, puis ajoute-le sur une piste du Mixer (slot d'effet).
+
+Lance ensuite la lecture : la tonalité s'affiche après quelques secondes.
