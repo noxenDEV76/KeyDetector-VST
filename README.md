@@ -1,12 +1,10 @@
-![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/apercu-mib-majeur%20(2).png?raw=true)
-
-![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/Image%202.PNG?raw=true)
-
 # 🎹 KEY DETECTOR — VST3 KEY DETECTION PLUGIN
 
 🎧 **Detect the key of any song directly inside FL Studio!**
 
 A free, real-time key detection plugin designed for music producers. 🔥
+
+![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/apercu-mib-majeur%20(2).png?raw=true)
 
 ## 🇫🇷 VERSION FRANÇAISE
 
@@ -91,7 +89,10 @@ JUCE est téléchargé automatiquement par le projet si sa configuration le pré
 
 JUCE est disponible sous licence AGPLv3 ou commerciale, selon les conditions applicables. Si tu distribues le plugin, vérifie les obligations de licence de JUCE et de toutes les dépendances utilisées.
 
----
+
+![image alt](https://github.com/rabbitHo123/KeyDetector-VST/blob/main/Image%202.PNG?raw=true)
+
+
 
 ## 🇬🇧 ENGLISH VERSION
 
